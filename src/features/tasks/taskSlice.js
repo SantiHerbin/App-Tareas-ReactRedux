@@ -15,7 +15,7 @@ const initialState = [
     },
 ]
 
-export const taskSlice = createSlice({
+const taskSlice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
@@ -23,22 +23,22 @@ export const taskSlice = createSlice({
             console.log(state, action)
             state.push(action.payload)
         },
-        updateTask: (state, action) => {
+        editTask: (state, action) => {
             const {id, title, description} = action.payload;
-            const foundTask = state.find(task => task.id === id)
+            const foundTask = state.find((task) => task.id === id)
             if (foundTask) {
-                foundTask.title = title
-                foundTask.description = description
+                foundTask.title = title;
+                foundTask.description = description;
             }
         },
         deleteTask: (state, action) => {
-            const taskFound = state.find(task => task.id === action.payload)
-            if (taskFound) {
-                state.splice(state.indexOf(taskFound), 1)
+            const foundTask = state.find((task) => task.id === action.payload)
+            if (foundTask) {
+                state.splice(state.indexOf(foundTask), 1)
             }
         }
     }
 });
 
-export const {addTask, deleteTask, updateTask} = taskSlice.actions
+export const {addTask, editTask, deleteTask} = taskSlice.actions
 export default taskSlice.reducer
